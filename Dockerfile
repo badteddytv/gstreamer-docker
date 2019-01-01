@@ -1,37 +1,42 @@
-FROM alpine:edge
+FROM ubuntu:18.04
 
 ARG GST_VERSION=1.14.4
 
-RUN apk add --no-cache \
-    autoconf `# libnice`\
-    automake `# libnice`\
-    bison \
-    build-base \
-    flex \
-    gettext-dev \
-    git \
-    glib \
-    gnutls-dev `# libnice`\
-    gtk-doc `# libnice`\
-    libffi-dev \
-    libmount \
-    libsrtp-dev \
-    libtool `# libnice`\
-    libvpx-dev \
-    linux-headers \
-    openssl-dev `# needed for DTLS requirement`\
-    opus-dev \
-    pcre-dev \
-    perl \
-    python \
-    x264-dev \
-    zlib-dev
+RUN apt-get update -y && apt-get upgrade -y && \
+apt install -y \
+libglib2.0-0 \
+libnice10 \
+libnice-dev \
+libjson-glib-1.0 \
+libjson-glib-dev \
+libsoup2.4-dev \
+libssl-dev \
+libreadline-dev \
+libsrtp0-dev \
+libvpx-dev \
+libvpx5 \
+python3-gst-1.0 \
+libsoup2.4-dev \
+autoconf \
+automake \
+libtool \
+wget \
+bison \
+flex \
+git \
+gtk-doc-tools \
+libopus-dev \
+libpcre3-dev \
+libx264-152 \
+libgirepository1.0-dev \
+librtmp-dev \
+libfaad-dev
 
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/gstreamer10.html
 RUN wget https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-$GST_VERSION.tar.xz \
     && tar xvfJ gstreamer-$GST_VERSION.tar.xz > /dev/null \
     && cd gstreamer-$GST_VERSION \
-    && ./configure --prefix=/usr --enable-gtk-doc-html=no \
+    && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
     && make \
     && make install \
     && cd / \
@@ -39,7 +44,7 @@ RUN wget https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-$GST_VERSION.
     && wget https://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-$GST_VERSION.tar.xz \
     && tar xvfJ gst-plugins-base-$GST_VERSION.tar.xz > /dev/null \
     && cd gst-plugins-base-$GST_VERSION \
-    && ./configure --prefix=/usr --enable-gtk-doc-html=no \
+    && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
     && make \
     && make install \
     && cd / \
@@ -53,7 +58,7 @@ RUN wget https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-$GST_VERSION.
     && wget https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-$GST_VERSION.tar.xz \
     && tar xvfJ gst-plugins-good-$GST_VERSION.tar.xz > /dev/null \
     && cd gst-plugins-good-$GST_VERSION \
-    && ./configure --prefix=/usr --enable-gtk-doc-html=no \
+    && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
     && make \
     && make install \
     && cd / \
@@ -61,7 +66,7 @@ RUN wget https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-$GST_VERSION.
     && wget https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-$GST_VERSION.tar.xz \
     && tar xvfJ gst-plugins-bad-$GST_VERSION.tar.xz > /dev/null \
     && cd gst-plugins-bad-$GST_VERSION \
-    && ./configure --prefix=/usr --enable-gtk-doc-html=no \
+    && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
     && make \
     && make install \
     && cd / \
@@ -69,7 +74,7 @@ RUN wget https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-$GST_VERSION.
     && wget https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-$GST_VERSION.tar.xz \
     && tar xvfJ gst-plugins-ugly-$GST_VERSION.tar.xz > /dev/null \
     && cd gst-plugins-ugly-$GST_VERSION \
-    && ./configure --prefix=/usr --enable-gtk-doc-html=no \
+    && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
     && make \
     && make install \
     && cd / \
