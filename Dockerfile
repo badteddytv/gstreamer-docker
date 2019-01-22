@@ -30,10 +30,17 @@ libpcre3-dev \
 libx264-152 \
 libgirepository1.0-dev \
 librtmp-dev \
-libfaad-dev
+libfaad-dev \
+libfaac-dev \
+nasm
 
+RUN git clone --recursive https://github.com/cisco/openh264.git \
+    && cd openh264 \
+    && make \
+    && make install \
+    && cd / \
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/gstreamer10.html
-RUN wget https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-$GST_VERSION.tar.xz \
+    && wget https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-$GST_VERSION.tar.xz \
     && tar xvfJ gstreamer-$GST_VERSION.tar.xz > /dev/null \
     && cd gstreamer-$GST_VERSION \
     && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
