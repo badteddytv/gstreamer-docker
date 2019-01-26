@@ -36,7 +36,7 @@ nasm
 
 RUN git clone --recursive https://github.com/cisco/openh264.git \
     && cd openh264 \
-    && make \
+    && make -j8 \
     && make install \
     && cd / \
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/gstreamer10.html
@@ -44,7 +44,7 @@ RUN git clone --recursive https://github.com/cisco/openh264.git \
     && tar xvfJ gstreamer-$GST_VERSION.tar.xz > /dev/null \
     && cd gstreamer-$GST_VERSION \
     && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
-    && make \
+    && make -j8 \
     && make install \
     && cd / \
     # gst-plugins-base
@@ -52,7 +52,7 @@ RUN git clone --recursive https://github.com/cisco/openh264.git \
     && tar xvfJ gst-plugins-base-$GST_VERSION.tar.xz > /dev/null \
     && cd gst-plugins-base-$GST_VERSION \
     && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
-    && make \
+    && make -j8 \
     && make install \
     && cd / \
     # libnice
@@ -66,7 +66,7 @@ RUN git clone --recursive https://github.com/cisco/openh264.git \
     && tar xvfJ gst-plugins-good-$GST_VERSION.tar.xz > /dev/null \
     && cd gst-plugins-good-$GST_VERSION \
     && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
-    && make \
+    && make -j8 \
     && make install \
     && cd / \
     # gst-plugins-bad
@@ -74,7 +74,7 @@ RUN git clone --recursive https://github.com/cisco/openh264.git \
     && tar xvfJ gst-plugins-bad-$GST_VERSION.tar.xz > /dev/null \
     && cd gst-plugins-bad-$GST_VERSION \
     && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
-    && make \
+    && make -j8 \
     && make install \
     && cd / \
     # gst-plugins-ugly
@@ -82,6 +82,14 @@ RUN git clone --recursive https://github.com/cisco/openh264.git \
     && tar xvfJ gst-plugins-ugly-$GST_VERSION.tar.xz > /dev/null \
     && cd gst-plugins-ugly-$GST_VERSION \
     && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
-    && make \
+    && make -j8 \
+    && make install \
+    && cd / \
+    # gst-libav
+    && wget https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-$GST_VERSION.tar.xz \
+    && tar xvfJ gst-libav-$GST_VERSION.tar.xz > /dev/null \
+    && cd gst-libav-$GST_VERSION \
+    && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
+    && make -j8 \
     && make install \
     && cd / \
