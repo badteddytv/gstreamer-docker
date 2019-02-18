@@ -65,7 +65,7 @@ RUN wget https://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base
     # libnice
 RUN git clone https://github.com/libnice/libnice.git \
     && cd libnice \
-    && ./autogen.sh --prefix=/usr --with-gstreamer --enable-static --enable-static-plugins --enable-shared --without-gstreamer-0.10 --disable-gtk-doc \
+    && ./autogen.sh --with-gstreamer --enable-static --enable-static-plugins --enable-shared --without-gstreamer-0.10 --disable-gtk-doc \
     && make install \
     && cd /
     # gst-plugins-good
