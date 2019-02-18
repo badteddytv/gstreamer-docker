@@ -88,7 +88,7 @@ RUN wget https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good
 
 RUN git clone https://github.com/badteddytv/gst-plugins-bad.git \
     && cd gst-plugins-bad \
-    && ./autogen.sh --enable-introspection --disable-gtk-doc-html \
+    && ./autogen.sh --enable-introspection --enable-gtk-doc-html=no \
     && make -j8 \
     && make install \
     && cd /
@@ -110,3 +110,5 @@ RUN wget https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-$GST_VERSION.
     && make -j8 \
     && make install \
     && cd /
+
+ENV GI_TYPELIB_PATH=/usr/local/lib/girepository-1.0
