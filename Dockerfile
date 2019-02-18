@@ -32,10 +32,14 @@ libgirepository1.0-dev \
 librtmp-dev \
 libfaad-dev \
 libfaac-dev \
-nasm
+nasm \
+autopoint \
+gettext \
+pkg-config
 
-ENV GST_PLUGIN_PATH=/usr/lib/gstreamer-1.0
-ENV LD_LIBRARY_PATH=/usr/lib:/usr/local/lib
+
+ENV GST_PLUGIN_PATH=/usr/local/lib/gstreamer-1.0
+ENV LD_LIBRARY_PATH=/usr/local/lib
 
 RUN git clone --recursive https://github.com/cisco/openh264.git \
     && cd openh264 \
@@ -46,7 +50,7 @@ RUN git clone --recursive https://github.com/cisco/openh264.git \
 RUN wget https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-$GST_VERSION.tar.xz \
     && tar xvfJ gstreamer-$GST_VERSION.tar.xz > /dev/null \
     && cd gstreamer-$GST_VERSION \
-    && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
+    && ./configure --enable-introspection --enable-gtk-doc-html=no \
     && make -j8 \
     && make install \
     && cd /
@@ -54,7 +58,7 @@ RUN wget https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-$GST_VERSION.
 RUN wget https://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-$GST_VERSION.tar.xz \
     && tar xvfJ gst-plugins-base-$GST_VERSION.tar.xz > /dev/null \
     && cd gst-plugins-base-$GST_VERSION \
-    && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
+    && ./configure --enable-introspection --enable-gtk-doc-html=no \
     && make -j8 \
     && make install \
     && cd /
@@ -68,16 +72,23 @@ RUN git clone https://github.com/libnice/libnice.git \
 RUN wget https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good-$GST_VERSION.tar.xz \
     && tar xvfJ gst-plugins-good-$GST_VERSION.tar.xz > /dev/null \
     && cd gst-plugins-good-$GST_VERSION \
-    && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
+    && ./configure --enable-introspection --enable-gtk-doc-html=no \
     && make -j8 \
     && make install \
     && cd /
 
     # gst-plugins-bad
-RUN wget https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-$GST_VERSION.tar.xz \
-    && tar xvfJ gst-plugins-bad-$GST_VERSION.tar.xz > /dev/null \
-    && cd gst-plugins-bad-$GST_VERSION \
-    && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
+#RUN wget https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-$GST_VERSION.tar.xz \
+#    && tar xvfJ gst-plugins-bad-$GST_VERSION.tar.xz > /dev/null \
+#    && cd gst-plugins-bad-$GST_VERSION \
+#    && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
+#    && make -j8 \
+#    && make install \
+#    && cd /
+
+RUN git clone https://github.com/badteddytv/gst-plugins-bad.git \
+    && cd gst-plugins-bad \
+    && ./autogen.sh --enable-introspection --disable-gtk-doc-html \
     && make -j8 \
     && make install \
     && cd /
@@ -86,15 +97,16 @@ RUN wget https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-$
 RUN wget https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-$GST_VERSION.tar.xz \
     && tar xvfJ gst-plugins-ugly-$GST_VERSION.tar.xz > /dev/null \
     && cd gst-plugins-ugly-$GST_VERSION \
-    && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
+    && ./configure --enable-introspection --enable-gtk-doc-html=no \
     && make -j8 \
     && make install \
     && cd /
+
     # gst-libav
 RUN wget https://gstreamer.freedesktop.org/src/gst-libav/gst-libav-$GST_VERSION.tar.xz \
     && tar xvfJ gst-libav-$GST_VERSION.tar.xz > /dev/null \
     && cd gst-libav-$GST_VERSION \
-    && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
+    && ./configure --enable-introspection --enable-gtk-doc-html=no \
     && make -j8 \
     && make install \
     && cd /
