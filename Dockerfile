@@ -81,7 +81,7 @@ RUN wget https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good
 RUN wget https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-$GST_VERSION.tar.xz \
     && tar xvfJ gst-plugins-bad-$GST_VERSION.tar.xz > /dev/null \
     && cd gst-plugins-bad-$GST_VERSION \
-    && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
+    && ./configure --enable-introspection --enable-gtk-doc-html=no \
     && make -j8 \
     && make install \
     && cd /
