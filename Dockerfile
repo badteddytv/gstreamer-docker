@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-ARG GST_VERSION=1.14.4
+ARG GST_VERSION=1.16.0
 
 RUN apt-get update -y && apt-get upgrade -y && \
 apt install -y \
@@ -78,20 +78,20 @@ RUN wget https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good
     && cd /
 
     # gst-plugins-bad
-#RUN wget https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-$GST_VERSION.tar.xz \
-#    && tar xvfJ gst-plugins-bad-$GST_VERSION.tar.xz > /dev/null \
-#    && cd gst-plugins-bad-$GST_VERSION \
-#    && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
-#    && make -j8 \
-#    && make install \
-#    && cd /
-
-RUN git clone https://github.com/badteddytv/gst-plugins-bad.git \
-    && cd gst-plugins-bad \
-    && ./autogen.sh --enable-introspection --enable-gtk-doc-html=no \
+RUN wget https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-$GST_VERSION.tar.xz \
+    && tar xvfJ gst-plugins-bad-$GST_VERSION.tar.xz > /dev/null \
+    && cd gst-plugins-bad-$GST_VERSION \
+    && ./configure --enable-introspection --prefix=/usr --enable-gtk-doc-html=no \
     && make -j8 \
     && make install \
     && cd /
+
+# RUN git clone https://github.com/badteddytv/gst-plugins-bad.git \
+#     && cd gst-plugins-bad \
+#     && ./autogen.sh --enable-introspection --enable-gtk-doc-html=no \
+#     && make -j8 \
+#     && make install \
+#     && cd /
 
     # gst-plugins-ugly
 RUN wget https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-$GST_VERSION.tar.xz \
