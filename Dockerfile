@@ -35,17 +35,13 @@ libfaac-dev \
 nasm \
 autopoint \
 gettext \
-pkg-config
+pkg-config \
+libsrtp2-dev
 
 
 ENV GST_PLUGIN_PATH=/usr/local/lib/gstreamer-1.0
 ENV LD_LIBRARY_PATH=/usr/local/lib
 
-RUN git clone --recursive https://github.com/cisco/openh264.git \
-    && cd openh264 \
-    && make -j8 \
-    && make install \
-    && cd /
 # http://www.linuxfromscratch.org/blfs/view/svn/multimedia/gstreamer10.html
 RUN wget https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-$GST_VERSION.tar.xz \
     && tar xvfJ gstreamer-$GST_VERSION.tar.xz > /dev/null \
@@ -76,6 +72,12 @@ RUN wget https://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugins-good
     && make -j8 \
     && make install \
     && cd /
+
+# RUN git clone --recursive https://github.com/cisco/openh264.git \
+#     && cd openh264 \
+#     && make -j8 \
+#     && make install \
+#     && cd /
 
     # gst-plugins-bad
 RUN wget https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-$GST_VERSION.tar.xz \
