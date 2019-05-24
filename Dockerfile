@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-ARG GST_VERSION=1.16.0
+ARG GST_VERSION=1.14.4
 
 RUN apt-get update -y && apt-get upgrade -y && \
 apt install -y \
